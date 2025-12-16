@@ -1,0 +1,36 @@
+python /home/xsf/fl/edge/llava/run.py     --max_new_tokens 30     \
+--hf_model_dir /home/xsf/fl/edge/models/llava-1.5-7b-hf     \
+--visual_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/vision     \
+--llm_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/llm     \
+--input_text "Question: which city is this? Answer:"
+
+
+python /home/xsf/fl/edge/llava/run.py      --hf_model_dir /home/xsf/fl/edge/models/llava-1.5-7b-hf     \
+--visual_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/vision     \
+--llm_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/llm     \
+--input_text "Question: Summarize this article and provide some investment advice based on it in Chinese. Answer:"     \
+--image_path /home/xsf/fl/edge/images/mtgp_en.png   \
+--max_new_tokens 128
+
+
+python /home/xsf/fl/edge/llava/run.py      --hf_model_dir /home/xsf/fl/edge/models/llava-1.5-7b-hf     \
+--visual_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/vision     \
+--llm_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/llm     \
+--input_text "Question: Summarize this article and provide some investment advice based on it in Chinese. Answer:" \
+--image_path /home/xsf/fl/edge/images/mtgp_en.png    \
+--ocr   \
+--max_new_tokens 128
+
+python3 /home/xsf/fl/edge/llava/eval_ocrbench.py \
+   --hf_model_dir /home/xsf/fl/edge/models/llava-1.5-7b-hf \
+   --visual_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/vision \
+   --llm_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/llm \
+   --ocr \
+   --num_samples 10
+
+mpirun -n 2 python3 /home/xsf/fl/edge/llava/eval_ocrbench.py   \
+   --hf_model_dir /home/xsf/fl/edge/models/llava-1.5-7b-hf    \
+   --visual_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/vision    \
+   --llm_engine_dir /home/xsf/fl/edge/models/trt_engines/llava/llm_2gpu    \
+   --ocr    --num_samples 10
+
